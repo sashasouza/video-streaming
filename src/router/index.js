@@ -9,6 +9,10 @@ const routes = [
         redirect: { name: 'HomeComponent' }
     },
     {
+        path: '/video-streaming/video-streaming/',
+        redirect: { name: 'HomeComponent' }
+    },
+    {
         path: '/video-streaming/',
         name: 'HomeComponent',
         component: HomeComponent,
@@ -18,6 +22,13 @@ const routes = [
         name: 'VideoComponent',
         component: VideoComponent,
         props: true,
+        beforeEnter: (to, from, next) => {
+            if (to.params.src) {
+                next(); // <-- everything good, proceed
+            } else {
+                next({ name: 'HomeComponent' }); // <-- redirect to setup
+            }
+        }
     }
 ]
 
